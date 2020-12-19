@@ -12,10 +12,11 @@ public class MovieCalc {
         System.out.println(data.getMilliseconds());
         try {
             AnswerHandler.getInstance().readFile();
-            ResponseHandler inputHandler = new ResponseHandler();
-            inputHandler.readFile();
-            inputHandler.printAllParticipants();
+            ResponseHandler responseHandler = new ResponseHandler();
+            responseHandler.readFile();
             AnswerHandler.getInstance().printAllCorrectTimeStamps();
+            responseHandler.printAllParticipants();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
