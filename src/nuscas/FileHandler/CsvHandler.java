@@ -8,19 +8,21 @@ import java.io.IOException;
 public abstract class CsvHandler {
     BufferedReader bufferedReader;
     protected final String COMMA_DELIMITER = ",";
-    private String sourceDir = "";
+    protected String sourceDir = "";
     public CsvHandler() {
 
     }
 
-    public void setUp(String sourceDir) throws IOException {
+    public void setUpReader(String sourceDir) throws IOException {
         this.setSourceDir(sourceDir);
         this.bufferedReader = new BufferedReader(new FileReader(this.sourceDir));
+    }
+
+    public void setUpWriter(String sourceDir) throws IOException {
+        this.setSourceDir(sourceDir);
     }
 
     public void setSourceDir(String sourceDir) {
         this.sourceDir = sourceDir;
     }
-
-    public abstract void readFile();
 }

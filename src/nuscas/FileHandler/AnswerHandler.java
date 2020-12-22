@@ -1,14 +1,11 @@
 package nuscas.FileHandler;
 
-import nuscas.Data.Participant;
 import nuscas.Data.TimeStamp;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class AnswerHandler extends CsvHandler {
+public class AnswerHandler extends CsvReader {
     private String sourceDir = "C:\\Users\\Looi Kai Wen\\Desktop\\NUS\\MovieCalc\\data\\Movie Screening Answer.csv";
     List<TimeStamp> timeStampsCorrect = new ArrayList<>();
     private static AnswerHandler answerHandler = new AnswerHandler();
@@ -24,7 +21,7 @@ public class AnswerHandler extends CsvHandler {
     @Override
     public void readFile() {
         try {
-            super.setUp(sourceDir);
+            super.setUpReader(sourceDir);
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 String[] timeStampsString = line.split(super.COMMA_DELIMITER);

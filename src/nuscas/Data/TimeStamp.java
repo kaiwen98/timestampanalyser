@@ -50,7 +50,7 @@ public class TimeStamp {
 
     public int getPoints(ArrayList<TimeStamp> timeStampReference) {
         for (TimeStamp correctTimeStamp : AnswerHandler.getInstance().getTimeStampsCorrect()) {
-            if (Math.abs(this.milliseconds - correctTimeStamp.milliseconds) < 300) {
+            if (Math.abs(this.milliseconds - correctTimeStamp.milliseconds) < 700) {
                 timeStampReference.add(correctTimeStamp);
                 return 2;
             }

@@ -1,22 +1,27 @@
 package nuscas;
 
-import nuscas.Data.TimeStamp;
+import nuscas.Data.Participant;
 import nuscas.FileHandler.AnswerHandler;
+import nuscas.FileHandler.ExcelSheetOutput;
 import nuscas.FileHandler.ResponseHandler;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MovieCalc {
     public static void main(String[] args) {
-        TimeStamp data = new TimeStamp("00:00:08.400");
-        System.out.println(data.getMilliseconds());
+        AnswerHandler.getInstance().readFile();
+        ResponseHandler.getInstance().readFile();
+        ArrayList<Participant> participants = ResponseHandler.getInstance().getParticipants();
+        for (Participant participant : participants) {
+            participant.evaluate();
+        }
+        // AnswerHandler.getInstance().printAllCorrectTimeStamps();
+        ResponseHandler.getInstance().printAllParticipants();
+        ExcelSheetOutput output = new ExcelSheetOutput();
         try {
-            AnswerHandler.getInstance().readFile();
-            ResponseHandler responseHandler = new ResponseHandler();
-            responseHandler.readFile();
-            AnswerHandler.getInstance().printAllCorrectTimeStamps();
-            responseHandler.printAllParticipants();
-
+            output.setUpWriter("C:\\Users\\Looi Kai Wen\\Desktop\\NUS\\MovieCalc\\data\\NUSCAS Xmas Watchalong breakdown.csv");
+            output.writeFile();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -5,15 +5,24 @@ import nuscas.Data.Participant;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ResponseHandler extends CsvHandler {
+public class ResponseHandler extends CsvReader {
     Participant participant;
     ArrayList<Participant> participants = new ArrayList<>();
     boolean isNonZeroParticipants = false;
     String sourceDir = "C:\\Users\\Looi Kai Wen\\Desktop\\NUS\\MovieCalc\\data\\NUSCAS Xmas Watchalong answer.csv";
+    private static ResponseHandler responseHandler = new ResponseHandler();
 
-    public ResponseHandler() throws IOException {
+    public static ResponseHandler getInstance() {
+        return responseHandler;
+    }
+
+    public ResponseHandler() {
         super();
-        super.setUp(sourceDir);
+        try {
+            super.setUpReader(sourceDir);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

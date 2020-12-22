@@ -13,6 +13,8 @@ public class Participant {
     private String participantName = "";
     private String participantTelegramName = "";
     private String submissionTimeStamp = "";
+    private double accuracy;
+    private int points;
 
     public Participant(String submissionTimeStamp, String participantName, String participantTelegramName) {
         this.submissionTimeStamp = submissionTimeStamp;
@@ -30,6 +32,15 @@ public class Participant {
         }
     }
 
+    public void evaluate() {
+        this.points = getAllPoints();
+        this.accuracy = evaluateAccuracy();
+    }
+
+    public String getTelegramName() {
+        return this.participantTelegramName.replaceAll("\"", "");
+    }
+
     @Override
     public String toString() {
         String input = "\nParticipant Name: %s\n"
@@ -41,7 +52,7 @@ public class Participant {
             + printTimeStamps(timeStampsRejected)
             + "\n"
             + "Participant Points: "
-            + getAllPoints()
+            + this.points
             + "\n"
             + "Participant Answers (Accepted, Correct)[%.2f%%]: "
             + printTimeStamps(timeStampsCorrect)
@@ -53,7 +64,7 @@ public class Participant {
             + printTimeStamps(timeStampsWrong)
             + "\n";
 
-        return String.format(input, participantName, participantTelegramName, (double)(timeStampsCorrect.size() * 100 / 24));
+        return String.format(input, participantName, participantTelegramName, this.accuracy);
     }
 
     private String printTimeStamps(ArrayList<TimeStamp> timeStamps) {
@@ -79,5 +90,13 @@ public class Participant {
             }
         }
         return sumOfPoints;
+    }
+
+    public double evaluateAccuracy() {
+        return timeStampsCorrect.size() * 100 / 82;
+    }
+
+    public double getAccuracy() {
+        return this.accuracy;
     }
 }
